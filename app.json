@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "Ptice Slovenije",
+    "slug": "ptice",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/birdIcons/flamengo.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/birdIcons/flamengo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/birdIcons/flamengo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.vs2000.BirdsFrontend",
+      "permissions": [
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "@rnmapbox/maps",
+        {
+          "RNMapboxMapsDownloadToken": "sk.eyJ1IjoidnM3MDE1IiwiYSI6ImNtMms1ZnljdzA2c3Iya3NlcXpsMnNoNHAifQ.bAwUGGPOpCsttOC3cFVS4g",
+          "RNMapboxMapsVersion": "11.0.0"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Show current location on map."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
