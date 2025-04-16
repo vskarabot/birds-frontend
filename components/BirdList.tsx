@@ -35,7 +35,10 @@ export default function BirdList() {
     useEffect(() => {
         const getBirds = async() => {
             setLoading('loading');
+
             const response = await axios.get(`http://${process.env.EXPO_PUBLIC_EXPRESS_IP}/api/birds?grouped=`);
+
+            console.log(response.status)
 
             if (response.status === 200) {
                 fullList.current = response.data;
@@ -81,8 +84,11 @@ export default function BirdList() {
     // problem is as we grouped birds by similarity, its not sure we will get all names in same object that have same family name
     // example -> if we take group.birds[0] it can take "Osprey" as family name, while all others have "Hawks and Vultures"
     // so we find most common name found by bird in group and display that
-    // TODO - also fix order....
-    const mostCommonName = (groupBirds: BirdInterface[]) => {
+    
+    // UPDATE - i don't know how commonly (if even) groupOrder numbers change, 
+    // but either way it's probably better to just use predefined dictionary than this function... ||
+    // or aggregate on the backend
+    /*const mostCommonName = (groupBirds: BirdInterface[]) => {
 
       const famCounts: { [key: string ]: number} = {};
 
@@ -100,7 +106,7 @@ export default function BirdList() {
       }
 
       return maxEl;
-    }
+    }*/
 
 
     const renderBirdGroup = ({item: group}: {item: BirdGroup}) => {
@@ -108,13 +114,13 @@ export default function BirdList() {
         <View>
           <View style={styles.groupCon}>
             <View style={styles.groupNameCon}>
-              {latSlo[mostCommonName(group.birds)] && (
+              {latSlo[group.groupOrder] && (
                 <Text style={[styles.familyNameSlo, { color: 'white'}]}>
-                  {latSlo[mostCommonName(group.birds)]} -{' '}
+                  {latSlo[group.groupOrder].slo} -{' '}
                 </Text>
               )}
               <Text style={[styles.familyName, { color: '#c0c0c0' }]}>
-                {mostCommonName(group.birds)}
+                {latSlo[group.groupOrder].eng}
               </Text>
             </View>
           </View>
