@@ -19,40 +19,33 @@ export default function Bird ({birdProp}: BirdI) {
                 slovenian: birdProp.comNameSI,
             }
         })}>
-            <View style={styles.container}>
-                <View style={styles.birdCard}>
-                    <View style={styles.left}>
-                        <View>
-                            <View style={styles.name}>
-                                <Text style={styles.sloName}>{birdProp.comNameSI}</Text>
-                                <Text style={styles.latName}>({birdProp.sciName})</Text>
-                            </View>
-                            <Text style={[styles.latName, { color: 'white' }]}>{birdProp.comName}</Text>
-                            <Text style={styles.latName}>Družina: {birdProp.familySciName}</Text>
-                        </View>
+            <View style={styles.birdCard}>
+                <View style={styles.left}>
+                    <View>
+                        <Text style={styles.sloName}>{birdProp.comNameSI}</Text>
+
+                        <Separator colors={['#c0c0c0', 'black', 'black']} height={1}/>
+                        <View style={{ height: 16 }} />
+                        
+                        <Text style={styles.latName}>{birdProp.sciName} (sci.)</Text>
+                        <Text style={styles.latName}>{birdProp.comName} (eng.)</Text>
+                        <Text style={styles.latName}>Družina: {birdProp.familySciName}</Text>
                     </View>
-                    {birdImages[birdProp.speciesCode] && (
-                        <View style={styles.imageContainer}>
-                            <Image
-                                source={{ uri: birdImages[birdProp.speciesCode]}}
-                                style={styles.image}
-                            />
-                        </View>
-                    )}
                 </View>
-
-                <Separator colors={['white', 'black']} height={1} />
-
+                {birdImages[birdProp.speciesCode] && (
+                    <View style={styles.imageContainer}>
+                        <Image
+                            source={{ uri: birdImages[birdProp.speciesCode]}}
+                            style={styles.image}
+                        />
+                    </View>
+                )}
             </View>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        borderBottomWidth: 0.5,
-        //borderColor: 'white'
-    },
     birdCard: {
         flexDirection: 'row',
         padding: 10,
@@ -60,26 +53,21 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: 'space-between',
         gap: 10,
-        backgroundColor: 'black'
+        backgroundColor: '#000',
+        borderBottomWidth: 1,
+        borderBottomColor: '#303030'
     },
     left: {
         flex: 1,
         alignSelf: 'stretch',
         justifyContent: 'space-between'
     },
-    name: {
-        gap: 5,
-        marginBottom: 5,
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderBottomWidth: .5,
-        borderColor: '#c0c0c0'
-    },
+
     sloName: {
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: '600',
-        color: 'white'
+        color: 'white',
+        marginBottom: 4
     },
     latName: {
         fontSize: 12,

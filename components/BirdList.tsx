@@ -5,6 +5,7 @@ import Bird from "./Bird";
 import { Ionicons } from "@expo/vector-icons";
 import latSlo from '../constants/FamilyNames';
 import { FlatList } from "react-native";
+import Separator from "./Separator";
 
 // flatlist was used because it supports lazy loading - scrollview is super slow
 // TODO - replace flatlist with section list
@@ -22,7 +23,7 @@ export default function BirdList() {
     const [debValue, setDebVal] = useState(inputText);
 
     const [status, setStatus] = useState('');
-    const [loading, setLoading] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
 
     const handleInputChange = (text: string) => {
         setInputText(text);
@@ -32,35 +33,33 @@ export default function BirdList() {
         setInputText('');
     }
 
+    const getBirds = async() => {
+      setRefreshing(true);
+
+      const response = await axios.get(`http://${process.env.EXPO_PUBLIC_EXPRESS_IP}/api/birds?grouped=`);
+      if (response.status === 200) {
+          fullList.current = response.data;
+          setBirdsList(response.data);
+      }
+
+      setRefreshing(false);
+    };
+
     useEffect(() => {
-        const getBirds = async() => {
-            setLoading('loading');
-
-            const response = await axios.get(`http://${process.env.EXPO_PUBLIC_EXPRESS_IP}/api/birds?grouped=`);
-
-            console.log(response.status)
-
-            if (response.status === 200) {
-                fullList.current = response.data;
-                setBirdsList(response.data);
-                setLoading('');
-            }
-        };
-
         getBirds();
     }, []);
 
     useEffect(() => {
       const time = setTimeout(() => {
         setDebVal(inputText);
-      }, 500);
+      }, 100);
 
       return () => clearTimeout(time);
     }, [inputText]);
 
     useEffect(() => {
         const getBird = async() => {
-            setLoading('loading');
+            setRefreshing(true);
             const response = await axios.get(`http://${process.env.EXPO_PUBLIC_EXPRESS_IP}/api/birds/search/${inputText}`);
 
             if (!response.data) {
@@ -70,7 +69,7 @@ export default function BirdList() {
                 setBirdsList(response.data);
             }
             setStatus('');
-            setLoading('');
+            setRefreshing(false);
 
             if (response.data.length === 0) {
               setStatus('Ni rezultatov.');
@@ -80,51 +79,23 @@ export default function BirdList() {
         getBird();
     }, [debValue]);
 
-
-    // problem is as we grouped birds by similarity, its not sure we will get all names in same object that have same family name
-    // example -> if we take group.birds[0] it can take "Osprey" as family name, while all others have "Hawks and Vultures"
-    // so we find most common name found by bird in group and display that
-    
-    // UPDATE - i don't know how commonly (if even) groupOrder numbers change, 
-    // but either way it's probably better to just use predefined dictionary than this function... ||
-    // or aggregate on the backend
-    /*const mostCommonName = (groupBirds: BirdInterface[]) => {
-
-      const famCounts: { [key: string ]: number} = {};
-
-      groupBirds.forEach((group: BirdInterface) => {
-        famCounts[group.familyComName] = (famCounts[group.familyComName] || 0) + 1;
-      })
-      
-      let max = 0;
-      let maxEl = "";
-      for (let group in famCounts) {
-        if (famCounts[group] > max) {
-          max = famCounts[group];
-          maxEl = group;
-        }
-      }
-
-      return maxEl;
-    }*/
-
-
     const renderBirdGroup = ({item: group}: {item: BirdGroup}) => {
       return (
         <View>
           <View style={styles.groupCon}>
             <View style={styles.groupNameCon}>
               {latSlo[group.groupOrder] && (
-                <Text style={[styles.familyNameSlo, { color: 'white'}]}>
-                  {latSlo[group.groupOrder].slo} -{' '}
+                <Text style={[styles.familyNameSlo]}>
+                  {latSlo[group.groupOrder].slo} ~{' '}
                 </Text>
               )}
-              <Text style={[styles.familyName, { color: '#c0c0c0' }]}>
+
+              <Text style={[styles.familyName]}>
                 {latSlo[group.groupOrder].eng}
               </Text>
             </View>
           </View>
-        
+
           {group.birds && (
             <FlatList
               data={group.birds}
@@ -149,9 +120,6 @@ export default function BirdList() {
                         </TouchableOpacity>
                     )}            
                 </View>
-                {loading === 'loading' && (
-                    <ActivityIndicator size={24}/>
-                )}
             </View>
 
             {status && (
@@ -159,12 +127,14 @@ export default function BirdList() {
             )}
 
             <FlatList
-              style={{ backgroundColor: '#505050' }}
               data={birdsList}
               keyExtractor={(group: BirdGroup) => group.groupOrder.toString()}
               renderItem={renderBirdGroup}
+              initialNumToRender={15}
+              onRefresh={getBirds}
+              refreshing={refreshing}
             />
-            
+
         </View>
     );
 }
@@ -172,19 +142,18 @@ export default function BirdList() {
 const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
-    backgroundColor: '#202020',
-    marginBottom: 10
+    backgroundColor: '#000',
+    paddingBottom: 32,
+    paddingHorizontal: 10,
   },
   search: {
     flex: 1,
     flexDirection: 'row',
-    margin: 10,
-    backgroundColor: '#202020',
     borderColor: '#C0C0C0',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 50,
-    paddingHorizontal: 10,
-    height: 50,
+    paddingLeft: 10,
+    height: 40,
     alignItems: 'center'
   },
   searchBar: {
@@ -198,32 +167,23 @@ const styles = StyleSheet.create({
     color: '#c0c0c0'
   },
   cancel: {
-    fontSize: 24,
+    fontSize: 18,
     color: '#c0c0c0'
   },
   status: {
     color: '#fff'
   },
-  family: {
-    width: 100,
-    height: 30,
-    borderColor: '#C0C0C0',
-    borderWidth: 1,
-    marginHorizontal: 15,
-    borderRadius: 15,
-    backgroundColor: '#6082B6',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   groupCon: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-    borderBottomWidth: 2,
-    elevation: 20,
-    borderColor: 'white',
-    backgroundColor: '#202020',
+    margin: 10,
+    backgroundColor: '#292929',
+    borderWidth: 1,
+    borderRadius: 30,
+    borderColor: '#505050',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignSelf: 'center'
   },
   groupNameCon: {
     flexDirection: 'row',
@@ -231,10 +191,11 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   familyNameSlo: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 12,
+    color: 'white'
   },
   familyName: {
-    fontSize: 14
+    fontSize: 12,
+    color: '#c0c0c0'
   },
 });

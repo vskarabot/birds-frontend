@@ -22,7 +22,7 @@ export default function TabLayout() {
                 options={{ 
                     title: 'Ptice',
                     tabBarIcon: ({ color, focused }) => (
-                        <Ionicons name={focused ? 'list' : 'list-outline'} color={color} size={24} />
+                        <Ionicons name={focused ? 'list' : 'list-outline'} color={color} size={18} />
                     ), 
                 }} 
             />
@@ -31,7 +31,7 @@ export default function TabLayout() {
                 options={{ 
                     title: 'Nastavitve',
                     tabBarIcon: ({ color, focused }) => (
-                        <Ionicons name={ focused ? 'settings' : 'settings-outline'} color={color} size={24} />
+                        <Ionicons name={ focused ? 'settings' : 'settings-outline'} color={color} size={18} />
                     ),
                 }} 
             />

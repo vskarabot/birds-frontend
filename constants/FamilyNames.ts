@@ -65,7 +65,7 @@ export default latSlo;*/
 // we now actually also need english names on key
 const latSlo: { [key: number ]: {slo: string, eng: string}} = {
     1: {
-        slo: 'Race, gosi in ostale vodne ptice', eng: 'Ducks, Geese, and Waterfowl'
+        slo: 'Race, gosi in ostali', eng: 'Ducks, Geese, and Waterfowl'
     },
     2: {
         slo: 'Kormorani in vranjeki', eng: 'Cormorants and Shags'
