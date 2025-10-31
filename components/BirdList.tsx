@@ -52,7 +52,7 @@ export default function BirdList() {
     useEffect(() => {
       const time = setTimeout(() => {
         setDebVal(inputText);
-      }, 100);
+      }, 500);
 
       return () => clearTimeout(time);
     }, [inputText]);
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderColor: '#C0C0C0',
     borderWidth: 1,
     borderRadius: 50,
-    paddingLeft: 10,
+    paddingHorizontal: 10,
     height: 40,
     alignItems: 'center'
   },

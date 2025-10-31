@@ -5,6 +5,7 @@ import Graph from "./Graph";
 import HowCommon from "./HowCommon";
 import birdImages from "@/constants/Images";
 import Separator from "./Separator";
+import latSlo from "@/constants/FamilyNames";
 
 interface BirdI {
     birdProp: BirdInterface;
@@ -21,15 +22,10 @@ export default function Bird ({birdProp}: BirdI) {
         })}>
             <View style={styles.birdCard}>
                 <View style={styles.left}>
+                    <Text style={styles.sloName}>{birdProp.comNameSI}</Text>
                     <View>
-                        <Text style={styles.sloName}>{birdProp.comNameSI}</Text>
-
-                        <Separator colors={['#c0c0c0', 'black', 'black']} height={1}/>
-                        <View style={{ height: 16 }} />
-                        
-                        <Text style={styles.latName}>{birdProp.sciName} (sci.)</Text>
-                        <Text style={styles.latName}>{birdProp.comName} (eng.)</Text>
-                        <Text style={styles.latName}>Družina: {birdProp.familySciName}</Text>
+                        <Text style={styles.latName}>{birdProp.sciName}</Text>
+                        <Text style={styles.latName}>{birdProp.order} &gt; {birdProp.familySciName}</Text>
                     </View>
                 </View>
                 {birdImages[birdProp.speciesCode] && (
@@ -54,20 +50,23 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         gap: 10,
         backgroundColor: '#000',
-        borderBottomWidth: 1,
+        borderBottomWidth: 2,
         borderBottomColor: '#303030'
     },
     left: {
         flex: 1,
         alignSelf: 'stretch',
-        justifyContent: 'space-between'
+        gap: 10
     },
 
     sloName: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: '600',
         color: 'white',
-        marginBottom: 4
+        backgroundColor: '#202020',
+        padding: 2,
+        textAlign: 'center',
+        borderRadius: 30
     },
     latName: {
         fontSize: 12,

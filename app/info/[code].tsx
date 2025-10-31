@@ -33,29 +33,20 @@ export default function Detail() {
 
             <View style={styles.liferContainer}>
                 <Ionicons name="checkmark-circle-outline" size={24} color={"lime"} />
-                <Text style={{ color: 'white' }}>Viden</Text>
+                <Text style={styles.textA}>Lifer</Text>
             </View>
 
             <Separator 
-                colors={['black', 'white', 'black']} 
-                height={1}
+                colors={['white', 'black']} 
+                height={.5}
             />
             
-            <Text style={styles.title}>Taksonomija</Text>
-
             <View style={styles.mainInfo}>
                 <View style={styles.namePart}>
-                    <Text style={styles.textA}>Ime:</Text>
-                    <Text style={styles.textB}>{bird?.comNameSI}</Text>
-                    <Text style={styles.textA}>(slov.),</Text>
+                    <Text style={styles.textA}>Tuje ime:</Text>
                     <Text style={styles.textB}>{bird?.sciName}</Text>
-                    <Text style={styles.textA}>(znan.),</Text>
+                    <Text style={styles.textA}> / </Text>
                     <Text style={styles.textB}>{bird?.comName}</Text>
-                    <Text style={styles.textA}>(ang.)</Text>
-                </View>
-                <View style={styles.namePart}>
-                    <Text style={styles.textA}>Domača imena:</Text>
-                    <Text style={styles.textB}>/</Text>
                 </View>
                 <View style={styles.namePart}>
                     <Text style={styles.textA}>Red:</Text>
@@ -77,17 +68,16 @@ export default function Detail() {
             />
 
             <Text style={styles.title}>Osnovne značilnosti</Text>
-
             <View style={styles.basicInfo}>
                 <View style={styles.namePart}>
-                    <Text style={{ fontStyle: 'italic', color: 'white' }}>
+                    <Text style={{ fontSize: 12, color: '#c0c0c0' }}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum cursus felis, et condimentum magna condimentum sit amet. Morbi faucibus sit amet sem ac dictum. Sed a arcu odio. Vivamus at justo id metus venenatis cursus quis at urna. Proin pellentesque consequat venenatis. Duis interdum fermentum maximus. 
                     </Text>
                 </View>
             </View>
 
             <Separator 
-                colors={['black', 'white']} 
+                colors={['white', 'black']} 
                 height={.5}
             />
 
@@ -100,14 +90,12 @@ export default function Detail() {
                         params: { code: code, slovenian: slovenian }
                         })}>
                             <View style={styles.sightingsCon}>
-                                <Text style={{ color: 'white' }}>Nedavno</Text>
                                 <Ionicons name='location-outline' size={24} color="white"></Ionicons>
                             </View> 
                     </TouchableOpacity>
 
 
                     <View style={styles.sightingsCon}>
-                        <Text style={{ color: 'white' }}>Dodaj</Text>
                         <Ionicons name='add-circle-outline' size={24} color="white"></Ionicons>
                     </View> 
                 </View>
@@ -124,22 +112,19 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         position: 'relative',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
     },
     image: {
         height: 300,
         width: '100%',
-        resizeMode: 'cover'
+        resizeMode: 'contain'
     },
 
     sightingsCon: {
         borderWidth: 1,
         borderColor: '#c0c0c0',
-        borderRadius: 10,
+        borderRadius: 30,
         padding: 10,
-        width: 80,
-        justifyContent: 'space-around',
-        alignItems: 'center',
     },
 
     sightings: {
@@ -149,11 +134,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
 
-    addKeyButton: {
-        backgroundColor: 'orange',
-        paddingHorizontal: 10
-    },
-
     manage: {
         flexDirection: 'row',
         gap: 10,
@@ -161,15 +141,11 @@ const styles = StyleSheet.create({
     },
 
     mainInfo: {
-        backgroundColor: 'black',
         alignSelf: 'stretch',
         padding: 10,
-        justifyContent: 'space-between',
-        elevation: 5,
     },
 
     namePart: {
-        marginBottom: 10,
         flexDirection: 'row',
         gap: 5,
         alignItems: 'baseline',
@@ -179,39 +155,41 @@ const styles = StyleSheet.create({
     liferContainer: {
         position: 'absolute',
         right: 0,
-        top: 5,
+        top: 20,
+        gap: 5,
+        paddingRight: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 2,
-        paddingRight: 5,
         backgroundColor: 'black',
         borderTopLeftRadius: 20,
         borderBottomLeftRadius: 20,
-        elevation: 3,
     },
 
     basicInfo: {
         backgroundColor: 'black',
-        padding: 10,
+        paddingHorizontal: 10,
+        paddingBottom: 10,
         flexDirection: 'row',
         alignSelf: 'stretch',
         justifyContent: 'space-between',
-        elevation: 5
     },
     title: {
         color: 'white', 
         alignSelf: 'stretch',
-        fontSize: 16,
-        padding: 10,
-        fontWeight: 'bold',
+        fontSize: 12,
+        fontWeight: '600',
         fontStyle: 'italic',
+        paddingHorizontal: 10,
+        paddingTop: 5
     },
 
     textA: {
+        fontSize: 12,
         color: '#c0c0c0',
         fontStyle: 'italic'
     },
     textB: {
+        fontSize: 12,
         color: 'white',
     },
 });
