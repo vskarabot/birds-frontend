@@ -5,14 +5,6 @@ import Bird from "./Bird";
 import { Ionicons } from "@expo/vector-icons";
 import latSlo from '../constants/FamilyNames';
 import { FlatList } from "react-native";
-import Separator from "./Separator";
-
-// flatlist was used because it supports lazy loading - scrollview is super slow
-// TODO - replace flatlist with section list
-// -> for this we need title: and data: [...]
-// try reshaping data in mongo, so it returns that shape
-// - !! field that we want to display as a title isn't unique - eagles for example can have different family names but same ordergroup
-// try finding most common one like i already did in this file but on backend
 
 export default function BirdList() {
 

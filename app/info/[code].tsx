@@ -27,62 +27,31 @@ export default function Detail() {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            
             {bird && bird.speciesCode && birdImages[bird.speciesCode] && (
                 <Image style={styles.image} source={{ uri: birdImages[bird.speciesCode] }}/>
             )}
 
+            <View style={styles.mainInfo}>
+                <View>
+                    <Text style={styles.text}>{bird?.sciName}  / {bird?.comName}</Text>
+                    <Text style={styles.text}>{bird?.order} → {bird?.familySciName}</Text>
+                </View>
+
+                <Separator height={1} colors={['white', '#303030', 'black']} />
+
+                <Text style={{ fontSize: 12, color: '#c0c0c0' }}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum cursus felis, et condimentum magna condimentum sit amet. Morbi faucibus sit amet sem ac dictum. Sed a arcu odio. Vivamus at justo id metus venenatis cursus quis at urna. Proin pellentesque consequat venenatis. Duis interdum fermentum maximus. 
+                </Text>
+            </View>
+
             <View style={styles.liferContainer}>
                 <Ionicons name="checkmark-circle-outline" size={24} color={"lime"} />
-                <Text style={styles.textA}>Lifer</Text>
+                <Text style={styles.text}>Lifer</Text>
             </View>
-
-            <Separator 
-                colors={['white', 'black']} 
-                height={.5}
-            />
-            
-            <View style={styles.mainInfo}>
-                <View style={styles.namePart}>
-                    <Text style={styles.textA}>Tuje ime:</Text>
-                    <Text style={styles.textB}>{bird?.sciName}</Text>
-                    <Text style={styles.textA}> / </Text>
-                    <Text style={styles.textB}>{bird?.comName}</Text>
-                </View>
-                <View style={styles.namePart}>
-                    <Text style={styles.textA}>Red:</Text>
-                    <Text style={styles.textB}>{bird?.order}</Text>
-                </View>
-                <View style={styles.namePart}>
-                    <Text style={styles.textA}>Družina:</Text>
-                    <Text style={styles.textB}>{bird?.familyComName}</Text>
-                </View>
-                <View style={styles.namePart}>
-                    <Text style={styles.textA}>Družina (znanstveno):</Text>
-                    <Text style={styles.textB}>{bird?.familySciName}</Text>
-                </View>               
-            </View>
-
-            <Separator 
-                colors={['white', 'black']} 
-                height={.5}
-            />
-
-            <Text style={styles.title}>Osnovne značilnosti</Text>
-            <View style={styles.basicInfo}>
-                <View style={styles.namePart}>
-                    <Text style={{ fontSize: 12, color: '#c0c0c0' }}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum cursus felis, et condimentum magna condimentum sit amet. Morbi faucibus sit amet sem ac dictum. Sed a arcu odio. Vivamus at justo id metus venenatis cursus quis at urna. Proin pellentesque consequat venenatis. Duis interdum fermentum maximus. 
-                    </Text>
-                </View>
-            </View>
-
-            <Separator 
-                colors={['white', 'black']} 
-                height={.5}
-            />
 
             <View style={styles.sightings}>
-                <Text style={styles.title}>Opažanja</Text>
+                <Text>Opazanja</Text>
 
                 <View style={styles.manage}>
                     <TouchableOpacity onPress={() => router.push({
@@ -104,6 +73,7 @@ export default function Detail() {
             <View style={{alignSelf: 'stretch', padding: 10}}>
                 <Graph />
             </View>
+
         </ScrollView>
     );
 }
@@ -112,14 +82,15 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         position: 'relative',
-        backgroundColor: 'black',
-    },
-    image: {
-        height: 300,
-        width: '100%',
-        resizeMode: 'contain'
+        padding: 10
     },
 
+    image: {
+        height: 250,
+        width: '100%',
+        resizeMode: 'cover',
+    },
+    
     sightingsCon: {
         borderWidth: 1,
         borderColor: '#c0c0c0',
@@ -142,37 +113,24 @@ const styles = StyleSheet.create({
 
     mainInfo: {
         alignSelf: 'stretch',
-        padding: 10,
-    },
-
-    namePart: {
-        flexDirection: 'row',
-        gap: 5,
-        alignItems: 'baseline',
-        flexWrap: 'wrap'
+        gap: 10,
+        paddingTop: 10
     },
 
     liferContainer: {
         position: 'absolute',
         right: 0,
-        top: 20,
+        top: 0,
         gap: 5,
+        padding: 2,
         paddingRight: 10,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: '#303030',
         borderTopLeftRadius: 20,
         borderBottomLeftRadius: 20,
     },
 
-    basicInfo: {
-        backgroundColor: 'black',
-        paddingHorizontal: 10,
-        paddingBottom: 10,
-        flexDirection: 'row',
-        alignSelf: 'stretch',
-        justifyContent: 'space-between',
-    },
     title: {
         color: 'white', 
         alignSelf: 'stretch',
@@ -183,13 +141,9 @@ const styles = StyleSheet.create({
         paddingTop: 5
     },
 
-    textA: {
-        fontSize: 12,
-        color: '#c0c0c0',
-        fontStyle: 'italic'
-    },
-    textB: {
+    text: {
         fontSize: 12,
         color: 'white',
-    },
+        fontStyle: 'italic'
+    }
 });
