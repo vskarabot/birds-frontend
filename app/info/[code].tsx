@@ -33,14 +33,20 @@ export default function Detail() {
             )}
 
             <View style={styles.mainInfo}>
-                <View>
-                    <Text style={styles.text}>{bird?.sciName}  / {bird?.comName}</Text>
-                    <Text style={styles.text}>{bird?.order} → {bird?.familySciName}</Text>
+                <View style={styles.description}>
+                    <Text style={styles.text}>
+                        <Text style={{color: '#a0a0a0'}}>Znanstveno ime: </Text>
+                        {bird?.sciName}
+                    </Text>
+                    <Text style={styles.text}>
+                        <Text style={{color: '#a0a0a0'}}>Taksonomija: </Text>
+                        {bird?.order} → {bird?.familySciName}
+                    </Text>
                 </View>
 
-                <Separator height={1} colors={['white', '#303030', 'black']} />
+                <Separator height={1} colors={['#303030', '#303030']} />
 
-                <Text style={{ fontSize: 12, color: '#c0c0c0' }}>
+                <Text style={styles.description}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum cursus felis, et condimentum magna condimentum sit amet. Morbi faucibus sit amet sem ac dictum. Sed a arcu odio. Vivamus at justo id metus venenatis cursus quis at urna. Proin pellentesque consequat venenatis. Duis interdum fermentum maximus. 
                 </Text>
             </View>
@@ -82,7 +88,6 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
         position: 'relative',
-        padding: 10
     },
 
     image: {
@@ -102,7 +107,8 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         flexDirection: 'row',
         flex: 1,
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        padding: 10
     },
 
     manage: {
@@ -114,7 +120,7 @@ const styles = StyleSheet.create({
     mainInfo: {
         alignSelf: 'stretch',
         gap: 10,
-        paddingTop: 10
+        padding: 10
     },
 
     liferContainer: {
@@ -145,5 +151,14 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: 'white',
         fontStyle: 'italic'
+    },
+
+    description: { 
+        fontSize: 12, 
+        color: '#c0c0c0', 
+        padding: 10, 
+        borderWidth: 1,
+        borderColor: '#303030',
+        borderRadius: 5
     }
 });

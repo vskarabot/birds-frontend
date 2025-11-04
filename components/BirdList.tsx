@@ -92,7 +92,8 @@ export default function BirdList() {
             <FlatList
               data={group.birds}
               keyExtractor={(bird) => bird.speciesCode}
-              renderItem={({ item: bird }) => <Bird key={bird.speciesCode} birdProp={bird} />}
+              renderItem={({ item: bird }) => <Bird key={bird.speciesCode} birdProp={bird} />
+            }
             />
           )}
         </View>
