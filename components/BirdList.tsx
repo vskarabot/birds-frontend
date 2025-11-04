@@ -92,6 +92,7 @@ export default function BirdList() {
             <FlatList
               data={group.birds}
               keyExtractor={(bird) => bird.speciesCode}
+              initialNumToRender={10}
               renderItem={({ item: bird }) => <Bird key={bird.speciesCode} birdProp={bird} />
             }
             />
@@ -123,7 +124,7 @@ export default function BirdList() {
               data={birdsList}
               keyExtractor={(group: BirdGroup) => group.groupOrder.toString()}
               renderItem={renderBirdGroup}
-              initialNumToRender={15}
+              initialNumToRender={3}
               onRefresh={getBirds}
               refreshing={refreshing}
             />

@@ -237,10 +237,10 @@ const latSlo: { [key: number ]: {slo: string, eng: string}} = {
     205: {
         slo: 'Ščinkavci', eng: 'Finches, Euphonias, and Allies'
     },
-    215: {
+    213: {
         slo: 'Kobilarji', eng: 'Old World Orioles'
     },
-    216: {
+    214: {
         slo: 'Škorci', eng: 'Starlings'
     }
 }
