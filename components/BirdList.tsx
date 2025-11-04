@@ -5,6 +5,7 @@ import Bird from "./Bird";
 import { Ionicons } from "@expo/vector-icons";
 import latSlo from '../constants/FamilyNames';
 import { FlatList } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function BirdList() {
 
@@ -73,19 +74,13 @@ export default function BirdList() {
 
     const renderBirdGroup = ({item: group}: {item: BirdGroup}) => {
       return (
-        <View>
+        <View style={ styles.groupName }>
           <View style={styles.groupCon}>
-            <View style={styles.groupNameCon}>
               {latSlo[group.groupOrder] && (
                 <Text style={[styles.familyNameSlo]}>
-                  {latSlo[group.groupOrder].slo} ~{' '}
+                  {latSlo[group.groupOrder].slo}
                 </Text>
               )}
-
-              <Text style={[styles.familyName]}>
-                {latSlo[group.groupOrder].eng}
-              </Text>
-            </View>
           </View>
 
           {group.birds && (
@@ -171,22 +166,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: 10,
-    backgroundColor: '#292929',
-    borderWidth: 1,
-    borderRadius: 30,
-    borderColor: '#505050',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    alignSelf: 'center'
+    alignSelf: 'flex-start',
+    borderBottomWidth: 1,
+    borderColor: '#c0c0c0'
   },
-  groupNameCon: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    flexWrap: 'wrap',
+  groupName: {
+    backgroundColor: '#303030',
   },
   familyNameSlo: {
     fontSize: 12,
-    color: 'white'
+    color: 'white',
   },
   familyName: {
     fontSize: 12,

@@ -49,6 +49,8 @@ export default function Detail() {
                 <Text style={styles.description}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin elementum cursus felis, et condimentum magna condimentum sit amet. Morbi faucibus sit amet sem ac dictum. Sed a arcu odio. Vivamus at justo id metus venenatis cursus quis at urna. Proin pellentesque consequat venenatis. Duis interdum fermentum maximus. 
                 </Text>
+
+                <Separator height={1} colors={['#303030', '#303030']} />
             </View>
 
             <View style={styles.liferContainer}>
